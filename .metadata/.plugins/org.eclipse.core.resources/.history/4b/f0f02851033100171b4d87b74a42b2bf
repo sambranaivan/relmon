@@ -1,0 +1,19 @@
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
+
+public class SensorGraph {
+
+	public static void main(String[] args) {
+		// creo una ventana
+		JFrame window = new JFrame();
+		window.setTitle("Monitor de Rele");
+		window.setSize(600,400);
+		window.setLayout(new BorderLayout());
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
+		
+	}
+
+}

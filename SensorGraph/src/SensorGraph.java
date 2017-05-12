@@ -33,6 +33,8 @@ public class SensorGraph {
 	static SerialPort chosenPort;
 	static SerialPort chosenPort2;
 	static SerialPort chosenPort3;
+	static int cantidad_puertos = 4;
+	static int cantidad_sensores = 13;
 
 	static int x = 0;
 
@@ -53,12 +55,14 @@ public class SensorGraph {
 		JComboBox<String> portList = new JComboBox<String>();
 		JComboBox<String> portList2 = new JComboBox<String>();
 		JComboBox<String> portList3 = new JComboBox<String>();
+		JComboBox<String> portList4 = new JComboBox<String>();
 		JButton connectButton = new JButton("Conectar");
 		JPanel topPanel = new JPanel();
 		JPanel centerPanel = new JPanel(new GridLayout(3, 5));
 		topPanel.add(portList);
 		topPanel.add(portList2);
 		topPanel.add(portList3);
+		topPanel.add(portList4);
 		topPanel.add(connectButton);
 		
 		
@@ -69,12 +73,13 @@ public class SensorGraph {
 			portList.addItem(portNames[i].getSystemPortName());
 			portList2.addItem(portNames[i].getSystemPortName());
 			portList3.addItem(portNames[i].getSystemPortName());
+			portList4.addItem(portNames[i].getSystemPortName());
 		}
 		
 		
-		XYSeries[][] seriesArray = new XYSeries[3][13];
-		XYSeriesCollection[] datasetArray = new XYSeriesCollection[13];
-		JFreeChart[] chartArray = new JFreeChart[13];
+		XYSeries[][] seriesArray = new XYSeries[cantidad_puertos][cantidad_sensores];
+		XYSeriesCollection[] datasetArray = new XYSeriesCollection[cantidad_sensores];
+		JFreeChart[] chartArray = new JFreeChart[cantidad_sensores];
 		
 		//blind series to dataset
 		for (int i = 0; i < datasetArray.length; i++) {//13
@@ -105,7 +110,7 @@ public class SensorGraph {
 				{
 					System.out.println("Click on Conectar");
 					//listo para conectar al pueto
-					chosenPort = SerialPort.getCommPort(portList.getSelectedItem().toString());
+					chosenPort = SerialPort.getCommPort("COM2");
 					chosenPort.setBaudRate(115200);
 
 					chosenPort.setComPortTimeouts(SerialPort.TIMEOUT_SCANNER, 0, 0);
@@ -116,6 +121,7 @@ public class SensorGraph {
 						portList.setEnabled(false);
 						portList2.setEnabled(false);
 						portList3.setEnabled(false);
+						portList4.setEnabled(false);
 					}
 					
 					//crear un nuevo hilo que escuche el puerto y lo lleve al grafico
@@ -140,6 +146,7 @@ public class SensorGraph {
 									seriesArray[0][j].add(x, number);
 									seriesArray[1][j].add(x,number+5);
 									seriesArray[2][j].add(x,number+10);
+									seriesArray[3][j].add(x,number+15);
 								}
 								
 								x++;
@@ -167,11 +174,12 @@ public class SensorGraph {
 					portList.setEnabled(true);
 					portList2.setEnabled(true);
 					portList3.setEnabled(true);
+					portList4.setEnabled(true);
 					connectButton.setText("Conectar");
 					//series clear
 					for (int i = 0; i < seriesArray.length; i++) {
-						for (int j = 0; j < seriesArray.length; j++) {
-							seriesArray[j][i].clear();
+						for (int j = 0; j < seriesArray[i].length; j++) {
+							seriesArray[i][j].clear();
 						}
 					}
 					x = 0;
