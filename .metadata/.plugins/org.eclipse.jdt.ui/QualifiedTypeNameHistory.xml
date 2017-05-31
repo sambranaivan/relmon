@@ -10,7 +10,6 @@
 <fullyQualifiedTypeName name="org.jfree.chart.ChartFactory"/>
 <fullyQualifiedTypeName name="org.jfree.chart.plot.PlotOrientation"/>
 <fullyQualifiedTypeName name="java.lang.reflect.Array"/>
-<fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="org.jfree.data.xy.XYDatasetTableModel"/>
 <fullyQualifiedTypeName name="org.jfree.data.xy.XYSeries"/>
 <fullyQualifiedTypeName name="org.jfree.data.xy.XYSeriesCollection"/>
@@ -18,4 +17,18 @@
 <fullyQualifiedTypeName name="org.jfree.chart.JFreeChart"/>
 <fullyQualifiedTypeName name="org.jfree.chart.resources.JFreeChartResources"/>
 <fullyQualifiedTypeName name="org.jfree.chart.entity.JFreeChartEntity"/>
+<fullyQualifiedTypeName name="com.google.api.services.sheets.v4.model.ValueRange"/>
+<fullyQualifiedTypeName name="org.mortbay.jetty.Request"/>
+<fullyQualifiedTypeName name="com.google.api.services.sheets.v4.model.Spreadsheet"/>
+<fullyQualifiedTypeName name="java.lang.reflect.Constructor"/>
+<fullyQualifiedTypeName name="com.google.api.services.sheets.v4.Sheets"/>
+<fullyQualifiedTypeName name="java.awt.List"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="GoogleSheets"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.lang.Object"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
 </qualifiedTypeNameHistroy>

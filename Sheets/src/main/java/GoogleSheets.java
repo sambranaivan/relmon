@@ -3,6 +3,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import com.google.api.client.auth.oauth2.Credential;
@@ -18,7 +19,13 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.Spreadsheet;
+import com.google.api.services.sheets.v4.model.SpreadsheetProperties;
 import com.google.api.services.sheets.v4.model.ValueRange;
+
+
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 public class GoogleSheets {
 	 /** Application name. */
@@ -95,9 +102,13 @@ public class GoogleSheets {
                 .build();
     }
     
+    /////////////////////////////////////////////
+    //Inicio de mi aplicacion
+    
+    
     private static Sheets service;
     private static final String spreadsheetId = "1Tc0H58Fl2HN5RF9_6CtdjuGQRnW-Mix2P_Gv3kNY85c";
-    private static final String range = "test!A1:N";//13 Valores + fecha
+   
     
  
     
@@ -106,36 +117,11 @@ public void init() throws IOException {
 	 // Build a new authorized API client service.
     service = getSheetsService();
 
-   
-
-    ValueRange response = service.spreadsheets().values()
-        .get(spreadsheetId, range)
-        .execute();
-    
-    
-    List<List<Object>> values = response.getValues();
-    
-    if (values == null || values.size() == 0) {
-        System.out.println("No data found.");
-    } else {
-      System.out.println("LEctura");
-      
-      for (List row : values) {
-        // Print columns A and E, which correspond to indices 0 and 4.
-        System.out.printf("%s, %s\n", row.get(0), row.get(1));
-      }
-    }
-    
-    
-    
-    
-    
-    
-    
+  
 }
 }
 
-public String getRange() throws IOException
+public String getRange(String range) throws IOException
 {
 	
 	  ValueRange response = service.spreadsheets().values()
@@ -148,21 +134,23 @@ public String getRange() throws IOException
 
 
 
-public void insert() throws IOException
+public void insert(List<String> datos, String param) throws IOException
 {
-	System.out.println("Gsheet Inser");
+
+
 	///write
-    String rango = this.getRange();//ultimo dato
+    String rango = getRange(param);//ultimo dato
     ///crear una lista de objetos a escribir
     List<List<Object>> valores = new ArrayList<>();
     
     ///creo el objeto
-    List<Object> dato1 = new ArrayList<>();
-   // List<Object> dato = new ArrayList<Object>(data);
-   dato1.add("objC");
-   dato1.add("OBJD");
+ 
+    datos.add(0, new Date().toString());
+   List<Object> dato = new ArrayList<Object>(datos);
+ 
     
-    valores.add(dato1);
+    valores.add(dato);
+ 
     
     //crear el valuerange y modificar la configuracion
     ValueRange rangodevalores = new ValueRange();
@@ -179,4 +167,18 @@ public void insert() throws IOException
     .execute();
 	}
 
-}
+
+
+public void createSheet(String titulo) throws IOException, GeneralSecurityException
+{
+	Spreadsheet requestBody = new Spreadsheet();
+	SpreadsheetProperties propiedades = new SpreadsheetProperties();
+	Date hoy = new Date();
+	propiedades.setTitle(titulo);
+	requestBody.setProperties(propiedades);
+	Sheets.Spreadsheets.Create request = service.spreadsheets().create(requestBody);
+	Spreadsheet response = request.execute();
+	System.out.println(response.getSpreadsheetId());
+			
+}	
+	}

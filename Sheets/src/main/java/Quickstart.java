@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,76 +38,90 @@ public class Quickstart {
 	static SerialPort chosenPort;
 	static SerialPort chosenPort2;
 	static SerialPort chosenPort3;
-	static int cantidad_puertos = 4;
-	static int cantidad_sensores = 13;
+	static int cantidad_puertos = 3;
+	static int cantidad_sensores = 12;
 	final static GoogleSheets Gsheets = new GoogleSheets();
 	static int x = 0;
 
 	public static void main(String[] args) throws IOException {
 	
 		Gsheets.init();
-		// creo una ventana
-		System.out.println("Begin");
-		final JFrame window = new JFrame();
-		window.setTitle("Monitor de Rele");
-		 Dimension UserScreen = Toolkit.getDefaultToolkit().getScreenSize();
-		    int ScreenWidth = (int) UserScreen.getWidth();
-		    int ScreenHeight = (int) UserScreen.getHeight();
-		    window.setSize(ScreenWidth, ScreenHeight);
-		window.setLayout(new BorderLayout());
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
-		
+		/**/
+		/**/
+		/**/
+		// CONFIGURAR PANTALLA
+				System.out.println("Begin");
+				final JFrame window = new JFrame();
+				window.setTitle("Monitor de Rele");
+				Dimension UserScreen = Toolkit.getDefaultToolkit().getScreenSize();
+				int ScreenWidth = (int) UserScreen.getWidth();
+				int ScreenHeight = (int) UserScreen.getHeight();
+				window.setSize(ScreenWidth, ScreenHeight);
+				window.setLayout(new BorderLayout());
+				window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				window.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
+				/**/
+				/**/
+				/**/
 		//crear un menu de seleccion de puertos y el boton para empezar
 		final JComboBox<String> portList = new JComboBox<String>();
 		final JComboBox<String> portList2 = new JComboBox<String>();
 		final JComboBox<String> portList3 = new JComboBox<String>();
-		final JComboBox<String> portList4 = new JComboBox<String>();
 		final JButton connectButton = new JButton("Conectar");
 		JPanel topPanel = new JPanel();
 		JPanel centerPanel = new JPanel(new GridLayout(3, 5));
 		topPanel.add(portList);
 		topPanel.add(portList2);
-		topPanel.add(portList3);
-		topPanel.add(portList4);
+		topPanel.add(portList3);		
 		topPanel.add(connectButton);
 		
+		JButton testButton = new JButton("TEST");
+		topPanel.add(testButton);
 		
-		//cargar los puertos disponibles en el combo
+		
+		/**/
+		/**/
+		/*CARGA LOS PUERTOS/**/
+		/**/
 		SerialPort[] portNames = SerialPort.getCommPorts();
 		for (int i = 0; i < portNames.length; i++) {
-		//cargo los dos combo
 			portList.addItem(portNames[i].getSystemPortName());
 			portList2.addItem(portNames[i].getSystemPortName());
 			portList3.addItem(portNames[i].getSystemPortName());
-			portList4.addItem(portNames[i].getSystemPortName());
 		}
 		
-		
+		/**/
+		/**/
+		/* CREO LA SERIES DE VALORES*/
+		/**/		
 		final XYSeries[][] seriesArray = new XYSeries[cantidad_puertos][cantidad_sensores];
 		XYSeriesCollection[] datasetArray = new XYSeriesCollection[cantidad_sensores];
 		final JFreeChart[] chartArray = new JFreeChart[cantidad_sensores];
 		
-		//blind series to dataset
+		//VINCULO LAS SERIE DE DATOS CON LOS DATASET PARA GRAFICAR
 		for (int i = 0; i < datasetArray.length; i++) {//13
 			
-			//System.out.println("Creo Dataset: "+i);
+			//creo un data ser por cada sensor
 			datasetArray[i] = new XYSeriesCollection();
 			
 			for (int j = 0; j < seriesArray.length; j++) {//3
-								
-				seriesArray[j][i] = new XYSeries("Ciaa_"+(j+1));
-				seriesArray[j][i].setMaximumItemCount(10);
+				//creo una serie por cada puerto			
+				seriesArray[j][i] = new XYSeries("Ciaa_"+(j+1));//creo la serie con el nombre CIAA_n
+				seriesArray[j][i].setMaximumItemCount(10);//limito a 10 la informacion ah graficar
 				
-				datasetArray[i].addSeries(seriesArray[j][i]);
+				datasetArray[i].addSeries(seriesArray[j][i]);//Vinculo la serie a cada dataset
 			}
+			//Creo un grafico de lineas por cada sensor
 			chartArray[i] = ChartFactory.createXYLineChart("Sensor N°"+(i+1), null, null, datasetArray[i]);
+			//agrego al panel cada grafico
 			centerPanel.add(new ChartPanel(chartArray[i]));
 		}
+		//agrego el panel al panel la botonera
 		window.add(topPanel,BorderLayout.NORTH);
+		//agrego al panel los graficos
 		window.add(centerPanel, BorderLayout.CENTER);
+		
 		//configura boton conectar
-		//ootro hilo paralelo que escuche el puerto
 		connectButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -116,57 +131,84 @@ public class Quickstart {
 				{
 					System.out.println("Click on Conectar");
 					//listo para conectar al pueto
-					chosenPort = SerialPort.getCommPort("COM2");
+					chosenPort = SerialPort.getCommPort("COM9");
 					chosenPort.setBaudRate(115200);
-
 					chosenPort.setComPortTimeouts(SerialPort.TIMEOUT_SCANNER, 0, 0);
+
+					chosenPort2 = SerialPort.getCommPort("COM11");
+					chosenPort2.setBaudRate(115200);
+					chosenPort2.setComPortTimeouts(SerialPort.TIMEOUT_SCANNER, 0, 0);
+
+					chosenPort3 = SerialPort.getCommPort("COM19");
+					chosenPort3.setBaudRate(115200);
+					chosenPort3.setComPortTimeouts(SerialPort.TIMEOUT_SCANNER, 0, 0);
+
 					
-					if (chosenPort.openPort())
+					if (chosenPort.openPort() && chosenPort2.openPort() && chosenPort3.openPort())
 					{
 						connectButton.setText("Desconectar");
+						//APAGO LOS COMBOBOX
 						portList.setEnabled(false);
 						portList2.setEnabled(false);
 						portList3.setEnabled(false);
-						portList4.setEnabled(false);
 					}
 					
 					//crear un nuevo hilo que escuche el puerto y lo lleve al grafico
 					Thread hilo = new Thread(){
 						@Override public void run(){
-							System.out.println("into the thread");
+							System.out.println("Dentro del Hilo");
 						Scanner scanner = new Scanner(chosenPort.getInputStream());
-						//Scanner scanner2 = new Scanner(chosenPort2.getInputStream());
-						//Scanner scanner3 = new Scanner(chosenPort3.getInputStream());
-				
-						//while (scanner.hasNextLine() && scanner2.hasNextLine() && scanner3.hasNextLine()) {
-							while (scanner.hasNextLine()) {
+						Scanner scanner2 = new Scanner(chosenPort2.getInputStream());
+						Scanner scanner3 = new Scanner(chosenPort3.getInputStream());
+						
+							while (scanner.hasNextLine() && scanner2.hasNextLine() && scanner3.hasNextLine() ) {
 							try {
 								String line = scanner.nextLine();
-								//String[] parts = line.split(",");
+								String line2 = scanner2.nextLine();
+								String line3 = scanner3.nextLine();
+								System.out.println("CIAA_1 "+line);
+								System.out.println("CIAA_2 "+line2);
+								System.out.println("CIAA_3 "+line3);
+								
+								//divido el string
+								//Convierto la cadena de datos en un Arraylist
 								ArrayList<String> aList= new ArrayList<String>(Arrays.asList(line.split(",")));
-								//List<String> item = Arrays.asList(line.split(","));
-								Gsheets.insert();
+								ArrayList<String> aList2= new ArrayList<String>(Arrays.asList(line2.split(",")));
+								ArrayList<String> aList3= new ArrayList<String>(Arrays.asList(line3.split(",")));
+							
+								
 								
 								for (int j = 0; j < chartArray.length; j++) 
 								{
-									//int number = Integer.parseInt(parts[j]);
-									int number = Integer.parseInt(aList.get(j));
+									
+									//CONVIERTO LOS VALORES EN NUMEROS Y LOS CARGO A LA SERIE DE DATOS
+									double number = Double.parseDouble(aList.get(j));
+									double number2 = Double.parseDouble(aList2.get(j));
+									double number3 = Double.parseDouble(aList3.get(j));
 									seriesArray[0][j].add(x, number);
-									seriesArray[1][j].add(x,number+5);
-									seriesArray[2][j].add(x,number+10);
-									seriesArray[3][j].add(x,number+15);
+									seriesArray[1][j].add(x,number2);//simul
+									seriesArray[2][j].add(x,number3);//simul
+									
 								}
 								
+								///ENVIO LOS DATOS A GSHETTS
+								Gsheets.insert(aList,"CIAA_1!A1:N");
+								Gsheets.insert(aList2,"CIAA_2!A1:N");
+								Gsheets.insert(aList3,"CIAA_3!A1:N");
+								
+								//INCREMENTO CONTADOR
 								x++;
 								
+								//LIMPIO LA PANTALLA
 								window.repaint();
 							} catch (Exception e2) {
 								// TODO: handle exception
 							}
 						}
-						scanner.close();
-						//scanner2.close();
-						//scanner3.close();
+							//CIERRO LOS SCANNER DE PUERTOS
+							scanner.close();
+							scanner2.close();
+							scanner3.close();
 						}
 					};
 					
@@ -177,25 +219,43 @@ public class Quickstart {
 				{
 					//desconetar del puerto
 					chosenPort.closePort();
-					//chosenPort2.closePort();
-					//chosenPort3.closePort();
+					chosenPort2.closePort();
+					chosenPort3.closePort();
+					
+					//HABILITO LOS COMBOBOX
 					portList.setEnabled(true);
 					portList2.setEnabled(true);
 					portList3.setEnabled(true);
-					portList4.setEnabled(true);
 					connectButton.setText("Conectar");
-					//series clear
+					//LIMPIO LOS GRAFICOS
 					for (int i = 0; i < seriesArray.length; i++) {
 						for (int j = 0; j < seriesArray[i].length; j++) {
 							seriesArray[i][j].clear();
 						}
 					}
+					//REINICIO EL CONTADOR DE GRAFICO
 					x = 0;
 				}
 			}
 		});
 		
-		//mostrar panatalla
+		testButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				try {
+					Gsheets.createSheet("TITULO");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (GeneralSecurityException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		//MOSTRAR PANTALLA
 		window.setVisible(true);
 	}
 
