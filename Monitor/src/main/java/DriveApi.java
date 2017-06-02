@@ -18,6 +18,7 @@ import com.google.api.services.drive.Drive;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -97,13 +98,15 @@ public class DriveApi {
                 .build();
     }
 
-    private static Drive service;
+    //private static Drive service;
     public static String actualFolder = "0B2SU9lm9vfKiQkc0WEdrQTNVOFE";
+    private static ArrayList<String> Hojas = null;
+    Drive service;
     
-    public void init() throws IOException {
+    public void init(ArrayList<String> hojas) throws IOException {
         // Build a new authorized API client service.
-        service = getDriveService();
-
+    	service = getDriveService();
+    	Hojas = hojas;
         // Print the names and IDs for up to 10 files.
        // FileList result = service.files().list()
         //     .setPageSize(10)
@@ -123,11 +126,11 @@ public class DriveApi {
     public void moveToFolder(String FileId) throws IOException
     {
     	System.out.println("Moviendo Archivo");
-        Drive driveService = service;
+        //Drive driveService = getDriveService();
     	String fileId = FileId;
     	String folderId = actualFolder;
     	// Retrieve the existing parents to remove
-    	File file = driveService.files().get(fileId)
+    	File file = service.files().get(fileId)
     	        .setFields("parents")
     	        .execute();
     	StringBuilder previousParents = new StringBuilder();
@@ -136,7 +139,7 @@ public class DriveApi {
     	    previousParents.append(',');
     	}
     	// Move the file to the new folder
-    	file = driveService.files().update(fileId, null)
+    	file = service.files().update(fileId, null)
     	        .setAddParents(folderId)
     	        .setRemoveParents(previousParents.toString())
     	        .setFields("id, parents")
@@ -146,12 +149,12 @@ public class DriveApi {
     
     public String createFolder(String nombre) throws IOException
     {  
-    	Drive driveService = service;
+    	//Drive driveService = getDriveService();
     	File fileMetadata = new File();
     	fileMetadata.setName(nombre);
     	fileMetadata.setMimeType("application/vnd.google-apps.folder");
 
-    	File file = driveService.files().create(fileMetadata)
+    	File file = service.files().create(fileMetadata)
     	        .setFields("id")
     	        .execute();
     	System.out.println("Folder ID: " + file.getId());
@@ -160,10 +163,10 @@ public class DriveApi {
     
     public String fileExist(String Filename) throws IOException
     {
-    	Drive driveService = service;
+    	//Drive driveService = getDriveService();
     	String pageToken = null;
     	do {
-    	    FileList result = driveService.files().list()
+    	    FileList result = service.files().list()
     	            .setQ("name='"+Filename+"' and '"+actualFolder+"' in parents")
     	            .setSpaces("drive")
     	            .setFields("nextPageToken, files(id, name)")

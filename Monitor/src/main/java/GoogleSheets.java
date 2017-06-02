@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
@@ -18,11 +19,17 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.sheets.v4.Sheets;
+import com.google.api.services.sheets.v4.Sheets.Spreadsheets.BatchUpdate;
 import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.AppendValuesResponse;
+import com.google.api.services.sheets.v4.model.BatchUpdateValuesRequest;
+import com.google.api.services.sheets.v4.model.GridProperties;
+import com.google.api.services.sheets.v4.model.Sheet;
+import com.google.api.services.sheets.v4.model.SheetProperties;
 import com.google.api.services.sheets.v4.model.Spreadsheet;
 import com.google.api.services.sheets.v4.model.SpreadsheetProperties;
 import com.google.api.services.sheets.v4.model.ValueRange;
+import com.google.api.services.sheets.v4.model.*;
 
 
 
@@ -108,17 +115,17 @@ public class GoogleSheets {
     //Inicio de mi aplicacion
     
     
-    private static Sheets service;
+    //private static Sheets service;
     private static String spreadsheetId = "1Tc0H58Fl2HN5RF9_6CtdjuGQRnW-Mix2P_Gv3kNY85c";
-   
-    
+    private static ArrayList<String> Hojas = null;
+    Sheets service;
  
     
-public void init() throws IOException {
+public void init(ArrayList<String> hojas) throws IOException {
 {
 	 // Build a new authorized API client service.
     service = getSheetsService();
-
+    Hojas = hojas;
   
 }
 }
@@ -130,7 +137,7 @@ public void setActualFile(String SpreadsheetId)
 
 public String getRange(String range) throws IOException
 {
-	
+	// Sheets service = getSheetsService();
 	  ValueRange response = service.spreadsheets().values()
 	        .get(spreadsheetId, range)
 	        .execute();
@@ -144,15 +151,15 @@ public String getRange(String range) throws IOException
 public void insert(List<String> datos, String param) throws IOException
 {
 
-
+	 //Sheets service = getSheetsService();
 	///write
-    String rango = getRange(param);//ultimo dato
+    String rango = getRange(param+"!A1:N");//ultimo dato
     ///crear una lista de objetos a escribir
     List<List<Object>> valores = new ArrayList<>();
     
     ///creo el objeto
  
-    datos.add(0, new Date().toString());
+  
    List<Object> dato = new ArrayList<Object>(datos);
  
     
@@ -173,22 +180,91 @@ public void insert(List<String> datos, String param) throws IOException
     .setValueInputOption("RAW")
     .execute();
     
-    System.out.println("INSERT RESPONSE: "+response);
+    //System.out.println("INSERT RESPONSE: "+response);
+    System.out.println(param+" Insert ok");
 	}
 
 
 
-public String getSheet(String titulo) throws IOException, GeneralSecurityException
-{
+public String CreateSheet(String titulo) throws IOException, GeneralSecurityException
+{ //Sheets service = getSheetsService();
 	System.out.println("Creando un Nuevo Archivo");
+	
+	//creo cuerpo de la peticion
 	Spreadsheet requestBody = new Spreadsheet();
+	//ajusto propiedades de la peticion
 	SpreadsheetProperties propiedades = new SpreadsheetProperties();
 	propiedades.setTitle(titulo);
 	requestBody.setProperties(propiedades);
+	requestBody.setSpreadsheetId(titulo);
+	
+	//Preparo las hojas de cada archivo
+	ArrayList<Sheet> list = new ArrayList<Sheet>();
+	for (String item : Hojas) {
+		Sheet hojita = new Sheet();
+		SheetProperties hojita_p = new SheetProperties();
+		hojita_p.setTitle(item);
+		//GridProperties grid = new GridProperties();
+		//grid.setRowCount(1);
+		
+		//grid.setFrozenRowCount(1);
+		
+		
+		
+		//hojita_p.setGridProperties(grid);
+		hojita.setProperties(hojita_p);
+		
+		
+		list.add(hojita);
+	}
+	
+	requestBody.setSheets(list);
+	///preparo l apeticion
 	Sheets.Spreadsheets.Create request = service.spreadsheets().create(requestBody);
+	//ejecuto la peticon
 	Spreadsheet response = request.execute();
 	System.out.println("----->"+response.getSpreadsheetId());
 	return response.getSpreadsheetId();
 			
-}	
+}
+
+public void setheaders(ArrayList<String> cabeceras) throws IOException {
+	// TODO Auto-generated method stubUSER_ENTERED
+	System.out.println("Insertando Cabeceras");
+	for (String item : Hojas) 
+	{
+		 //Sheets service = getSheetsService();
+		///write
+	    String rango = getRange(item+"!A1:N");//ultimo dato
+	    ///crear una lista de objetos a escribir
+	    List<List<Object>> valores = new ArrayList<>();
+	    
+	    ///creo el objeto
+	 
+	  
+	   List<Object> dato = new ArrayList<Object>(cabeceras);
+	 
+	    
+	    valores.add(dato);
+	    //crear el valuerange y modificar la configuracion
+	    ValueRange rangodevalores = new ValueRange();
+	    //System.out.println(rango);
+	    rangodevalores.setMajorDimension("ROWS");
+	    rangodevalores.setRange(rango);
+	    rangodevalores.setValues(valores);
+	    
+	    
+	    ///ejecutar la peticion
+	    service.spreadsheets()
+	    .values()
+	    .append(spreadsheetId, rango, rangodevalores)
+	    .setValueInputOption("USER_ENTERED")
+	    .execute();
+	    
+	   
+	    //System.out.println("INSERT RESPONSE: "+response);
+	    System.out.println(item+" Insert ok");
+		}
 	}
+}	
+

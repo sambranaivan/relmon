@@ -44,15 +44,38 @@ public class Quickstart {
 	static SerialPort chosenPort2;
 	static SerialPort chosenPort3;
 	static int cantidad_puertos = 3;
-	static int cantidad_sensores = 13;
+	static int cantidad_sensores = 12;
 	final static GoogleSheets Gsheets = new GoogleSheets();
 	final static DriveApi DriveApi = new DriveApi();
+	final static ArrayList<String> Cabeceras = new ArrayList<String>();
+	final static ArrayList<String> Cabeceras_ui = new ArrayList<String>();
+	
+	static String Dir = "C:/Users/Sambrana Ivan/Google Drive/Registro de Reles/Local/";
+	//static String Dir = "C:/exceltest/";
 	static int x = 0;
 
 	public static void main(String[] args) throws IOException {
-	
-		Gsheets.init();
-		DriveApi.init();
+		final ArrayList<String> Hojas = new ArrayList<>(Arrays.asList(("CIAA 1,CIAA 2, CIAA 3").split(",")));
+		
+		Cabeceras.add("Hora Medicion");
+		for(int i = 1; i<=6; i++)
+		{
+			Cabeceras.add("=\"Contacto "+i+"\"&char(10)&\"Normal Cerrado\" ");
+			Cabeceras.add("=\"Contacto "+i+"\"&char(10)&\"Normal Abierto\" ");
+		}
+		
+		Cabeceras_ui.add("Hora Medicion");
+		for(int i = 1; i<=6; i++)
+		{
+			Cabeceras_ui.add("Contacto "+i+" Normal Cerrado");
+			Cabeceras_ui.add("Contacto "+i+" Normal Abierto");
+		}
+
+		
+		Gsheets.init(Hojas);
+		DriveApi.init(Hojas);		
+		
+		final ExcelFile Excel = new ExcelFile(Hojas);
 		
 		/**/
 		/**/
@@ -120,7 +143,7 @@ public class Quickstart {
 				datasetArray[i].addSeries(seriesArray[j][i]);//Vinculo la serie a cada dataset
 			}
 			//Creo un grafico de lineas por cada sensor
-			chartArray[i] = ChartFactory.createXYLineChart("Sensor N°"+(i+1), null, null, datasetArray[i]);
+			chartArray[i] = ChartFactory.createXYLineChart(Cabeceras_ui.get(i+1), null, null, datasetArray[i]);
 			//agrego al panel cada grafico
 			centerPanel.add(new ChartPanel(chartArray[i]));
 		}
@@ -139,18 +162,11 @@ public class Quickstart {
 				{
 					System.out.println("Click on Conectar");
 					//listo para conectar al pueto
-					chosenPort = SerialPort.getCommPort(portList.getSelectedItem().toString());
-					chosenPort.setBaudRate(115200);
-					chosenPort.setComPortTimeouts(SerialPort.TIMEOUT_SCANNER, 0, 0);
-
-					chosenPort2 = SerialPort.getCommPort(portList2.getSelectedItem().toString());
-					chosenPort2.setBaudRate(115200);
-					chosenPort2.setComPortTimeouts(SerialPort.TIMEOUT_SCANNER, 0, 0);
-
-					chosenPort3 = SerialPort.getCommPort(portList3.getSelectedItem().toString());
-					chosenPort3.setBaudRate(115200);
-					chosenPort3.setComPortTimeouts(SerialPort.TIMEOUT_SCANNER, 0, 0);
-
+					chosenPort = ConfigurePort(chosenPort,(portList.getSelectedItem().toString()));
+					chosenPort2 = ConfigurePort(chosenPort2,(portList2.getSelectedItem().toString()));
+					chosenPort3 = ConfigurePort(chosenPort3,(portList3.getSelectedItem().toString()));
+					
+					
 					
 					if (chosenPort.openPort() && chosenPort2.openPort() && chosenPort3.openPort())
 					{
@@ -180,6 +196,7 @@ public class Quickstart {
 								
 								//divido el string
 								//Convierto la cadena de datos en un Arraylist
+								
 								ArrayList<String> aList= new ArrayList<String>(Arrays.asList(line.split(",")));
 								ArrayList<String> aList2= new ArrayList<String>(Arrays.asList(line2.split(",")));
 								ArrayList<String> aList3= new ArrayList<String>(Arrays.asList(line3.split(",")));
@@ -200,13 +217,22 @@ public class Quickstart {
 								}
 								
 								///ENVIO LOS DATOS A GSHETTS
-								updateFile();
-								Gsheets.insert(aList,"CIAA_1!A1:N");
-								Gsheets.insert(aList2,"CIAA_2!A1:N");
-								Gsheets.insert(aList3,"CIAA_3!A1:N");
+								updateFile();///Actualiza el Target del Sheets
+								String horaDeLectura = getHora();
+								  aList.add(0,horaDeLectura);
+								  aList2.add(0,horaDeLectura);
+								  aList3.add(0,horaDeLectura);
+								Gsheets.insert(aList,Hojas.get(0));
+								Gsheets.insert(aList2,Hojas.get(1));
+								Gsheets.insert(aList3,Hojas.get(2));
 								
-								///Grabar en EXcel
-								//excel.insert(datos,path,1)
+								///
+								///Grabar en EXcel Local
+								Excel.CargarExcel(line, Dir+getTitulo(), Hojas.get(0).toString());
+								Excel.CargarExcel(line2, Dir+getTitulo(), Hojas.get(1).toString());
+								Excel.CargarExcel(line3, Dir+getTitulo(), Hojas.get(2).toString());
+								
+								
 								
 								//INCREMENTO CONTADOR
 								x++;
@@ -266,6 +292,17 @@ public class Quickstart {
 		String reportDate = df.format(today);
 		return reportDate+"_Registro Rele";
 	}
+	public static String getHora()
+	{
+		DateFormat df = new SimpleDateFormat("hh:mm:ss");
+
+		// Get the date today using Calendar object.
+		Date today = Calendar.getInstance().getTime();        
+		// Using DateFormat format method we can create a string 
+		// representation of a date with the defined format.
+		String reportDate = df.format(today);
+		return reportDate;
+	}
 	
 	
 	public static void updateFile() throws IOException, GeneralSecurityException
@@ -277,14 +314,18 @@ public class Quickstart {
 			if( actualFile != null)
 			{
 				System.out.println("El Archivo<<"+getTitulo()+">>Ya existe");
+				Gsheets.setActualFile(actualFile);
+				
 			}
 			else
 			{
-				actualFile = Gsheets.getSheet(getTitulo());
+				actualFile = Gsheets.CreateSheet(getTitulo());
 				DriveApi.moveToFolder(actualFile);
+				Gsheets.setActualFile(actualFile);
+				Gsheets.setheaders(Cabeceras);
 			}
 			
-			Gsheets.setActualFile(actualFile);
+		
 			
 			
 			
@@ -296,6 +337,15 @@ public class Quickstart {
 			e1.printStackTrace();
 		}
 		
+		
+	}
+
+	public static SerialPort ConfigurePort(SerialPort serial,String Port)
+	{
+		serial = SerialPort.getCommPort(Port);
+		serial.setBaudRate(115200);
+		serial.setComPortTimeouts(SerialPort.TIMEOUT_SCANNER, 0, 0);
+		return serial;
 		
 	}
 }
