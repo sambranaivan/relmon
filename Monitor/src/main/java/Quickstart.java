@@ -47,7 +47,7 @@ public class Quickstart {
 	static int cantidad_sensores = 12;
 	final static GoogleSheets Gsheets = new GoogleSheets();
 	final static DriveApi DriveApi = new DriveApi();
-	final static ArrayList<String> Cabeceras = new ArrayList<String>();
+	
 	final static ArrayList<String> Cabeceras_ui = new ArrayList<String>();
 	
 	static String Dir = "C:/Users/Sambrana Ivan/Google Drive/Registro de Reles/Local/";
@@ -55,14 +55,8 @@ public class Quickstart {
 	static int x = 0;
 
 	public static void main(String[] args) throws IOException {
-		final ArrayList<String> Hojas = new ArrayList<>(Arrays.asList(("CIAA 1,CIAA 2, CIAA 3").split(",")));
+		final ArrayList<String> Hojas = new ArrayList<>(Arrays.asList(("CIAA 1,CIAA 2,CIAA 3").split(",")));
 		
-		Cabeceras.add("Hora Medicion");
-		for(int i = 1; i<=6; i++)
-		{
-			Cabeceras.add("=\"Contacto "+i+"\"&char(10)&\"Normal Cerrado\" ");
-			Cabeceras.add("=\"Contacto "+i+"\"&char(10)&\"Normal Abierto\" ");
-		}
 		
 		Cabeceras_ui.add("Hora Medicion");
 		for(int i = 1; i<=6; i++)
@@ -279,6 +273,8 @@ public class Quickstart {
 		
 		//MOSTRAR PANTALLA
 		window.setVisible(true);
+		
+		
 	}
 
 	public static String getTitulo()
@@ -292,6 +288,20 @@ public class Quickstart {
 		String reportDate = df.format(today);
 		return reportDate+"_Registro Rele";
 	}
+	
+	public static String getFecha()
+	{
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+
+		// Get the date today using Calendar object.
+		Date today = Calendar.getInstance().getTime();        
+		// Using DateFormat format method we can create a string 
+		// representation of a date with the defined format.
+		String reportDate = df.format(today);
+		return reportDate;
+	}
+	
+	
 	public static String getHora()
 	{
 		DateFormat df = new SimpleDateFormat("hh:mm:ss");
@@ -319,10 +329,11 @@ public class Quickstart {
 			}
 			else
 			{
-				actualFile = Gsheets.CreateSheet(getTitulo());
-				DriveApi.moveToFolder(actualFile);
+				actualFile = DriveApi.CreateFile(getTitulo());
+				//DriveApi.moveToFolder(actualFile);
 				Gsheets.setActualFile(actualFile);
-				Gsheets.setheaders(Cabeceras);
+				Gsheets.setheaders(getFecha());
+				
 			}
 			
 		
@@ -330,9 +341,6 @@ public class Quickstart {
 			
 			
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (GeneralSecurityException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}

@@ -228,20 +228,20 @@ public String CreateSheet(String titulo) throws IOException, GeneralSecurityExce
 			
 }
 
-public void setheaders(ArrayList<String> cabeceras) throws IOException {
+public void setheaders(String fecha) throws IOException {
 	// TODO Auto-generated method stubUSER_ENTERED
 	System.out.println("Insertando Cabeceras");
 	for (String item : Hojas) 
 	{
 		 //Sheets service = getSheetsService();
 		///write
-	    String rango = getRange(item+"!A1:N");//ultimo dato
+	    String rango = getRange(item+"!E1:N");//ultimo dato
 	    ///crear una lista de objetos a escribir
 	    List<List<Object>> valores = new ArrayList<>();
 	    
 	    ///creo el objeto
 	 
-	  
+	    ArrayList<String> cabeceras= new ArrayList<String>(Arrays.asList(fecha.split(",")));
 	   List<Object> dato = new ArrayList<Object>(cabeceras);
 	 
 	    
@@ -257,8 +257,8 @@ public void setheaders(ArrayList<String> cabeceras) throws IOException {
 	    ///ejecutar la peticion
 	    service.spreadsheets()
 	    .values()
-	    .append(spreadsheetId, rango, rangodevalores)
-	    .setValueInputOption("USER_ENTERED")
+	    .update(spreadsheetId, rango, rangodevalores)
+	    .setValueInputOption("RAW")
 	    .execute();
 	    
 	   

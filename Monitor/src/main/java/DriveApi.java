@@ -1,6 +1,7 @@
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
+import com.google.api.client.googleapis.auth.clientlogin.ClientLogin.Response;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
@@ -14,6 +15,7 @@ import com.google.api.services.drive.model.*;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.drive.Drive;
+import com.google.api.services.drive.Drive.Files.Get;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,6 +23,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.mortbay.resource.FileResource;
 
 public class DriveApi {
     /** Application name. */
@@ -182,4 +186,16 @@ public class DriveApi {
     	return null;
     }
 
+    public String CreateFile(String Filename) throws IOException
+    {
+    	String templateId = "1uSiIF6MJLjHZvRf9EBgM7BXuo9vKYB7UbtMaDaJwRTI";
+    	File file = new File();
+    	file.setName(Filename);
+    	ArrayList<String> parents = new ArrayList<String>();
+    	parents.add("0B2SU9lm9vfKiQkc0WEdrQTNVOFE");
+    	file.setParents(parents);
+    	File response = service.files().copy(templateId, file).execute();
+    	return (response.getId());
+    	
+    }
 }
