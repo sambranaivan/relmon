@@ -135,10 +135,11 @@ public class Quickstart {
 								dataset.add(aList3);
 								
 								
-								///
-								Graficos.addValues(x,0,aList);
-								Graficos.addValues(x,1,aList2);
-								Graficos.addValues(x,2,aList3);
+								///campo de sincronizacion para graficos
+								//list.get(0) en lugar de x
+								Graficos.addValues(Integer.parseInt(aList.get(0)),0,aList);
+								Graficos.addValues(Integer.parseInt(aList2.get(0)),1,aList2);
+								Graficos.addValues(Integer.parseInt(aList3.get(0)),2,aList3);
 								
 								
 								
