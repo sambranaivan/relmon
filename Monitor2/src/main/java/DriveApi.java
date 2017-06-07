@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.mortbay.resource.FileResource;
+
 public class DriveApi {
     /** Application name. */
     private static final String APPLICATION_NAME =
@@ -96,18 +98,6 @@ public class DriveApi {
         Credential credential = authorize();
         return new Drive.Builder(
                 HTTP_TRANSPORT, JSON_FACTORY, credential)
-                .setApplicationName(APPLICATION_NAME)
-                .build();
-    }
-
-    /**
-     * Build and return an authorized Sheets API client service.
-     * @return an authorized Sheets API client service
-     * @throws IOException
-     */
-    public static Sheets getSheetsService() throws IOException {
-        Credential credential = authorize();
-        return new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
                 .setApplicationName(APPLICATION_NAME)
                 .build();
     }

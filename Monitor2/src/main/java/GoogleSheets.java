@@ -132,14 +132,14 @@ public void init(ArrayList<String> hojas) throws IOException {
 
 public void setActualFile(String SpreadsheetId)
 {
-	GoogleSheets.setSpreadsheetId(SpreadsheetId);
+	GoogleSheets.spreadsheetId = SpreadsheetId;
 	}
 
 public String getRange(String range) throws IOException
 {
 	// Sheets service = getSheetsService();
 	  ValueRange response = service.spreadsheets().values()
-	        .get(getSpreadsheetId(), range)
+	        .get(spreadsheetId, range)
 	        .execute();
 	  
 	  System.out.println("Rango ACtual: "+response.getRange());
@@ -176,7 +176,7 @@ public void insert(List<String> datos, String param) throws IOException
     ///ejecutar la peticion
     AppendValuesResponse response = service.spreadsheets()
     .values()
-    .append(getSpreadsheetId(), rango, rangodevalores)
+    .append(spreadsheetId, rango, rangodevalores)
     .setValueInputOption("RAW")
     .execute();
     
@@ -247,7 +247,7 @@ public void setheaders(String fecha) throws IOException {
 	    ///ejecutar la peticion
 	    service.spreadsheets()
 	    .values()
-	    .update(getSpreadsheetId(), rango, rangodevalores)
+	    .update(spreadsheetId, rango, rangodevalores)
 	    .setValueInputOption("RAW")
 	    .execute();
 	    
@@ -256,13 +256,5 @@ public void setheaders(String fecha) throws IOException {
 	    System.out.println(item+" Insert ok");
 		}
 	}
-
-public static String getSpreadsheetId() {
-	return spreadsheetId;
-}
-
-public static void setSpreadsheetId(String spreadsheetId) {
-	GoogleSheets.spreadsheetId = spreadsheetId;
-}
 }	
 

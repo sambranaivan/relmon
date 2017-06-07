@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.fazecast.jSerialComm.SerialPort"/>
 <fullyQualifiedTypeName name="java.awt.Toolkit"/>
 <fullyQualifiedTypeName name="java.awt.Dimension"/>
 <fullyQualifiedTypeName name="javax.swing.JPanel"/>
@@ -13,23 +12,16 @@
 <fullyQualifiedTypeName name="org.jfree.data.xy.XYDatasetTableModel"/>
 <fullyQualifiedTypeName name="org.jfree.data.xy.XYSeries"/>
 <fullyQualifiedTypeName name="org.jfree.data.xy.XYSeriesCollection"/>
-<fullyQualifiedTypeName name="org.jfree.chart.ChartPanel"/>
 <fullyQualifiedTypeName name="org.jfree.chart.JFreeChart"/>
 <fullyQualifiedTypeName name="org.jfree.chart.resources.JFreeChartResources"/>
 <fullyQualifiedTypeName name="org.jfree.chart.entity.JFreeChartEntity"/>
 <fullyQualifiedTypeName name="com.google.api.services.sheets.v4.model.ValueRange"/>
 <fullyQualifiedTypeName name="org.mortbay.jetty.Request"/>
-<fullyQualifiedTypeName name="java.lang.reflect.Constructor"/>
 <fullyQualifiedTypeName name="java.awt.List"/>
 <fullyQualifiedTypeName name="java.util.Arrays"/>
 <fullyQualifiedTypeName name="GoogleSheets"/>
-<fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="java.lang.Object"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="javax.swing.JButton"/>
-<fullyQualifiedTypeName name="java.io.IOException"/>
-<fullyQualifiedTypeName name="java.security.GeneralSecurityException"/>
 <fullyQualifiedTypeName name="com.google.api.services.sheets.v4.Sheets"/>
 <fullyQualifiedTypeName name="com.google.api.services.sheets.v4.Sheets.Spreadsheets"/>
 <fullyQualifiedTypeName name="com.google.api.services.sheets.v4.Sheets.Spreadsheets.Create"/>
@@ -38,4 +30,25 @@
 <fullyQualifiedTypeName name="com.google.api.services.sheets.v4.model.SpreadsheetProperties"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
+<fullyQualifiedTypeName name="com.google.api.client.auth.oauth2.Credential"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="com.google.api.client.util.store.FileDataStoreFactory"/>
+<fullyQualifiedTypeName name="com.google.api.client.json.JsonFactory"/>
+<fullyQualifiedTypeName name="com.google.api.client.json.jackson2.JacksonFactory"/>
+<fullyQualifiedTypeName name="com.google.api.client.http.HttpTransport"/>
+<fullyQualifiedTypeName name="java.security.GeneralSecurityException"/>
+<fullyQualifiedTypeName name="com.google.api.services.drive.Drive"/>
+<fullyQualifiedTypeName name="java.lang.reflect.Constructor"/>
+<fullyQualifiedTypeName name="org.jfree.chart.ChartPanel"/>
+<fullyQualifiedTypeName name="chartHandler"/>
+<fullyQualifiedTypeName name="PortHandler"/>
+<fullyQualifiedTypeName name="java.lang.Boolean"/>
+<fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="com.fazecast.jSerialComm.SerialPort"/>
+<fullyQualifiedTypeName name="GoogleServices"/>
+<fullyQualifiedTypeName name="javax.swing.JFrame"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="javax.swing.JComboBox"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="javax.swing.JButton"/>
 </qualifiedTypeNameHistroy>
