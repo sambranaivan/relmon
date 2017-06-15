@@ -6,6 +6,9 @@ import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -95,6 +98,7 @@ public class chartHandler {
 					}
 					//Creo un grafico de lineas por cada sensor
 					chartArray[i] = ChartFactory.createXYLineChart(Cabeceras_ui.get(i+1), null, null, datasetArray[i]);
+					chartArray[i].getXYPlot().getRangeAxis().setRange(0, 300);;
 					//agrego al panel cada grafico
 					
 				}
