@@ -21,12 +21,12 @@ public class GestionVariable {
 	
 	//carga ArrayList anomalias de una Variable, con resultados posee anomalias
 	public void cargarAnomalia(double p_data){
+		
+		
 		Variable unaVar = new Variable(p_data);
+		unaVar.check(this.tiposAnomalias);
 		this.variableUno = unaVar; 
-		for (Anomalia a : tiposAnomalias) {
-    	  a.resultado = a.check(p_data);
-		}
-		variableUno.anomalias = tiposAnomalias;
+
 	}
 	
 }

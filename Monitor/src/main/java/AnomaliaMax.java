@@ -1,4 +1,3 @@
-
 public class AnomaliaMax extends Anomalia {
 	
 	//Constructor
