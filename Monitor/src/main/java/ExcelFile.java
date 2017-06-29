@@ -58,12 +58,11 @@ public class ExcelFile {
                 sheetName = null;
             }
             workbook.close();
-            
         }
         
         
         
-	//Cï¿½digo que agrega un dato en el excel
+	//Codigo que agrega un dato en el excel
 	public static void appendFiles(File excelFile, String filename, String p_dato, String Hoja) throws IOException{
         InputStream excelStream = null;
           
@@ -141,4 +140,99 @@ public class ExcelFile {
 	    
 	}	
 	
+	    
+        //crea las etiquetas de cada sheet y encabezado para las anomalias
+        private static void CrearEtiquetasAnomalias(File excelFile, String filename) throws IOException{
+            HSSFWorkbook workbook = new HSSFWorkbook();
+            HSSFRow rowhead = null;
+            
+            for (String item : puertos) {
+                sheetName = workbook.createSheet(item);
+                rowhead= sheetName.createRow((short)0);
+                
+                //variar estos valores------------------
+//                rowhead.createCell(1).setCellValue("Valor Mínimo 200");
+//                rowhead.createCell(2).setCellValue("Valor Máximo 400");
+                
+
+               	rowhead.createCell(0).setCellValue("Fecha: ");
+               	rowhead.createCell(1).setCellValue("Tipo Anomalia; ");
+               	rowhead.createCell(2).setCellValue("Valor: ");
+                
+                
+                writeSheetFiles(workbook, filename);
+                sheetName = null;
+            }
+            workbook.close();   
+        }    
+	  
+        //carga Anomalias en Excel
+	    public void CargarExcelAnomalia(String p_ruta,Variable p_variable) {
+	        try {
+                 
+	            
+	            String filename = p_ruta+".xls" ;
+	            File excelFile = new File(filename);
+	            
+	            
+                   
+	            if (!(excelFile.exists())){
+                        
+	            	//El Archivo Excel es nuevo
+	            	  System.out.println("El fichero de Anomalias " + excelFile + " es nuevo");
+                          
+	            	  CrearEtiquetasAnomalias(excelFile,filename);
+                          
+                      System.out.println("Etiquetas Anomalias creadas");                                           
+                                    
+	            }
+	            
+	            appendFilesAnomalia(excelFile, filename, p_variable);
+                
+                	         
+	        } catch ( Exception ex ) {
+	            System.out.println(ex);
+	        }
+	    
+	}
+	    
+		//Codigo que agrega un dato en el excel de Anomalias
+		public static void appendFilesAnomalia(File excelFile, String filename, Variable p_variable) throws IOException{
+	        InputStream excelStream = null;
+	          
+	            excelStream = new FileInputStream(excelFile);
+	            // High level representation of a workbook.
+	            // Representaciï¿½n del mï¿½s alto nivel de la hoja excel.
+	            HSSFWorkbook hssfWorkbook = new HSSFWorkbook(excelStream);
+	            // We chose the sheet is passed as parameter. 
+	            // Elegimos la hoja que se pasa por parï¿½metro.
+	            //HSSFSheet hssfSheet = hssfWorkbook.getSheetAt(Integer.parseInt(Hoja));
+
+	            sheetName = hssfWorkbook.getSheet(p_variable.getNombreVariable());
+	            
+	            // I get the last number of rows occupied on the sheet
+	            // Obtengo el Ãºltimo nï¿½mero de filas ocupadas en la hoja
+	            //int rows = hssfSheet.getLastRowNum();        
+	            int lastRow = sheetName.getLastRowNum() + 1;
+	            // We create the new sheet we are going to use.
+	            // Creamos la hoja nueva que vamos a utilizar.
+	            HSSFRow row = sheetName.createRow((short)lastRow);
+	            //Appending a row  
+	            row = cargarRowAnomalias(row, p_variable);
+	            writeSheetFiles(hssfWorkbook,  filename);
+	            
+		}
+		
+        //Carga una fila del excel con los valores recibidos de anomalias
+        private static HSSFRow cargarRowAnomalias(HSSFRow p_row, Variable p_variable){
+
+            int n = p_variable.getAnomalias().size();
+            for (int i = 0; i < n; i++) {
+                p_row.createCell(i).setCellValue(p_variable.getAnomalias().get(i).getFecha());
+                p_row.createCell(i).setCellValue(p_variable.getAnomalias().get(i).getClass().getName());
+                p_row.createCell(i).setCellValue(p_variable.getValor());
+            }
+
+            return p_row;
+        }
 }
