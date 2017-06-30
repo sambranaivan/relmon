@@ -22,6 +22,10 @@ public  abstract class Anomalia {
 		return this.date;
 	}
 	
+	public ResultadoAnomalia getResultado(){
+		return this.resultado;
+	}
+	
 	//abstract methods 
 	//abstract public boolean check(double dataRef);
 	abstract public ResultadoAnomalia check(double p_data, String p_nombreVariable);

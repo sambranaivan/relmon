@@ -21,8 +21,20 @@ public class Variable {
 		return this.anomalias;
 	}
 	
+	public void setValor(double p_valor){
+		this.valor = p_valor;
+	}
+	
 	public void setAnomalias(ArrayList<Anomalia> p_anomalias){
 		this.anomalias = p_anomalias;
+	}
+	
+	public void setAnomaliaMin(AnomaliaMin p_anomMin){
+		this.getAnomalias().add(p_anomMin);
+	}
+	
+	public void setAnomaliaMax(AnomaliaMax p_anomMax){
+		this.getAnomalias().add(p_anomMax);
 	}
 	
 	//constructor
@@ -31,20 +43,16 @@ public class Variable {
 		nombreVariable = p_nombreVariable;
 	}
 	
+	public Variable(String p_nombreVariable) {
+		this.nombreVariable = p_nombreVariable;
+	}
+
 	//check general
-	public void check(ArrayList<Anomalia> p_tiposAnomalias){
-		
+	public void check(){
 		Anomalia unAnomalia;
 		ResultadoAnomalia unResultado;
-		for (Anomalia a : p_tiposAnomalias) {
-	    	  unResultado = a.check(this.valor, this.getNombreVariable());
-	    	  
-	    	  //Solo en caso de haber una anomalia, se registra una con su resultado
-	    	  if(unResultado != null){
-	    		  unAnomalia = a;
-	    		  unAnomalia.setResultadoAnomalia(unResultado);
-	    		  this.getAnomalias().add(unAnomalia);
-	    	  }
+		for (Anomalia a : this.getAnomalias()) {
+	    	  a.check(this.valor, this.getNombreVariable());
 		}
 	}
 	

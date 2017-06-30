@@ -164,7 +164,17 @@ public class Quickstart {
 								Excel.CargarExcel(line2, Dir+getTitulo(), Hojas.get(1).toString());
 								Excel.CargarExcel(line3, Dir+getTitulo(), Hojas.get(2).toString());
 								
-								
+								///
+								///Registrar Anomalias
+								GestionVariable unaGestion = new GestionVariable();
+								unaGestion.checkVariables(line);
+								unaGestion.cargarEnExcel(Dir+getTitulo()+"_Anomalias");
+								unaGestion = new GestionVariable();
+								unaGestion.checkVariables(line2);
+								unaGestion.cargarEnExcel(Dir+getTitulo()+"_Anomalias");
+								unaGestion = new GestionVariable();
+								unaGestion.checkVariables(line3);
+								unaGestion.cargarEnExcel(Dir+getTitulo()+"_Anomalias");
 								
 								//INCREMENTO CONTADOR
 								x++;

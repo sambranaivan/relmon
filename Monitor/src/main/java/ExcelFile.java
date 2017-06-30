@@ -211,7 +211,7 @@ public class ExcelFile {
 	            sheetName = hssfWorkbook.getSheet(p_variable.getNombreVariable());
 	            
 	            // I get the last number of rows occupied on the sheet
-	            // Obtengo el último n�mero de filas ocupadas en la hoja
+	            // Obtengo el ultimo numero de filas ocupadas en la hoja
 	            //int rows = hssfSheet.getLastRowNum();        
 	            int lastRow = sheetName.getLastRowNum() + 1;
 	            // We create the new sheet we are going to use.
@@ -225,14 +225,13 @@ public class ExcelFile {
 		
         //Carga una fila del excel con los valores recibidos de anomalias
         private static HSSFRow cargarRowAnomalias(HSSFRow p_row, Variable p_variable){
-
-            int n = p_variable.getAnomalias().size();
-            for (int i = 0; i < n; i++) {
-                p_row.createCell(i).setCellValue(p_variable.getAnomalias().get(i).getFecha());
-                p_row.createCell(i).setCellValue(p_variable.getAnomalias().get(i).getClass().getName());
-                p_row.createCell(i).setCellValue(p_variable.getValor());
-            }
-
+                
+        	if(p_variable.getAnomalias().get(0).getResultado().getFlag()){
+        		p_row.createCell(0).setCellValue(p_variable.getAnomalias().get(0).getResultado().getMensaje());
+        	}else{
+        		p_row.createCell(1).setCellValue(p_variable.getAnomalias().get(1).getResultado().getMensaje());
+        	}
+        	
             return p_row;
         }
 }

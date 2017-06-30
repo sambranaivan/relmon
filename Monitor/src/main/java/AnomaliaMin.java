@@ -26,6 +26,7 @@ public class AnomaliaMin extends Anomalia {
 			r.add(true, msg);
 		}
 		this.setFecha(strDate);
+		this.setResultadoAnomalia(r);
 		return r;
 	}
 	
