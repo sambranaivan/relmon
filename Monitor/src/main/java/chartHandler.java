@@ -117,6 +117,7 @@ public class chartHandler {
 	
 	public void addValues(int x,int index,ArrayList<String>values)
 	{
+		System.out.println("ChartHandler: addValues("+x+","+index+")");
 		for (int j = 0; j < chartArray.length; j++) 
 		{
 			

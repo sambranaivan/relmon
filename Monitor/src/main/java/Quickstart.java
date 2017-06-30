@@ -42,7 +42,7 @@ public class Quickstart {
 	
 	static int cantidad_puertos = 3;
 	static int cantidad_sensores = 12;
-	
+	static int x = 0;
 	final static chartHandler Graficos = new chartHandler(cantidad_puertos, cantidad_sensores);
 	final static PortHandler Puertos = new PortHandler(cantidad_puertos);
 	static String Dir = "C:/Users/Sambrana Ivan/Google Drive/Registro de Reles/Local/";
@@ -50,7 +50,7 @@ public class Quickstart {
 
 	
 	//static String Dir = "C:/exceltest/";
-	static int x = 0;
+	
 
 	public static void main(String[] args) throws IOException {
 		final GoogleServices GoogleApi = new GoogleServices();
@@ -115,7 +115,7 @@ public class Quickstart {
 						@Override public void run(){
 							System.out.println("Dentro del Hilo");
 						Puertos.scannerInit();
-						
+							
 							while (Puertos.HasNextLine()) {
 							try {
 								String line = Puertos.getNextLine(0);
@@ -123,6 +123,7 @@ public class Quickstart {
 								String line3 = Puertos.getNextLine(2);
 								//divido el string
 								//Convierto la cadena de datos en un Arraylist
+								System.out.println("[#1]////LEER ENTRADAS");
 								ArrayList<ArrayList<String>> dataset = new ArrayList<ArrayList<String>>();
 								
 								
@@ -140,15 +141,19 @@ public class Quickstart {
 								//Graficos.addValues(Integer.parseInt(aList.get(0)),0,aList);
 								//Graficos.addValues(Integer.parseInt(aList2.get(0)),1,aList2);
 								//Graficos.addValues(Integer.parseInt(aList3.get(0)),2,aList3);
+								System.out.println("[#2]////GRAFICAR");
 								Graficos.addValues(x,0,aList);
 								Graficos.addValues(x,1,aList2);
 								Graficos.addValues(x,2,aList3);
-								
+								//INCREMENTO CONTADOR
+								System.out.println("Incremento"+x+"++");
+								x++;
 								
 								
 								
 								
 								///ENVIO LOS DATOS A GSHETTS
+								System.out.println("[#3]////ENVIO LOS DATOS A DRIVE");
 								updateFile(GoogleApi);///Actualiza el Target del Sheets
 								String horaDeLectura = getHora();
 								  aList.add(0,horaDeLectura);
@@ -160,12 +165,14 @@ public class Quickstart {
 								
 								///
 								///Grabar en EXcel Local
+								System.out.println("[#4]////Grabar en EXcel Local");
 								Excel.CargarExcel(line, Dir+getTitulo(), Hojas.get(0).toString());
 								Excel.CargarExcel(line2, Dir+getTitulo(), Hojas.get(1).toString());
 								Excel.CargarExcel(line3, Dir+getTitulo(), Hojas.get(2).toString());
 								
 								///
-								///Registrar Anomalias
+							/////Registrar Anomalias
+								System.out.println("[#5]/////Registrar Anomalias");
 								GestionVariable unaGestion = new GestionVariable();
 								unaGestion.checkVariables(line);
 								unaGestion.cargarEnExcel(Dir+getTitulo()+"_Anomalias");
@@ -176,10 +183,10 @@ public class Quickstart {
 								unaGestion.checkVariables(line3);
 								unaGestion.cargarEnExcel(Dir+getTitulo()+"_Anomalias");
 								
-								//INCREMENTO CONTADOR
-								x++;
+								
 								
 								//LIMPIO LA PANTALLA
+								System.out.println("[#6]/////Limpio Pantalla");
 								window.repaint();
 							} catch (Exception e2) {
 								// TODO: handle exception
