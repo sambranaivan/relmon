@@ -74,12 +74,13 @@ public class GestionVariable {
 	 
 	//carga ArrayList anomalias de una Variable, con resultados posee anomalias
 	public void checkVariables(String p_dato){
-		
+		System.out.println("--checkVariables: "+p_dato);
 		//divide los 13 valores que vienen en String separados por comas
 		 ArrayList<String> data = new ArrayList<String>(Arrays.asList(p_dato.split(",")));
 		
 		 //Check Resultados de anomalias
-		 for(int i = 0; i <13; i++){
+		 //** cambio (i < 13) por (i < variables.size())..
+		 for(int i = 0; i < variables.size(); i++){
 			 variables.get(i).setValor(Double.parseDouble(data.get(i)));
 			 variables.get(i).check();
 		 }
