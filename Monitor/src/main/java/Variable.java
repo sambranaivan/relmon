@@ -6,7 +6,7 @@ public class Variable {
 	//attributes
 	private String nombreVariable;
 	private double valor;
-	private ArrayList<Anomalia> anomalias;
+	private ArrayList<Anomalia> anomalias = new ArrayList<Anomalia>(); 
 
 	//setter and getters
 	public String getNombreVariable(){

@@ -62,7 +62,9 @@ public class GestionVariable {
 		
 		Variable varTemperatura = new Variable("Temperatura");
 		varTemperatura.setAnomaliaMin(new AnomaliaMin(200));
-		varTemperatura.setAnomaliaMax(new AnomaliaMax(250));		
+		varTemperatura.setAnomaliaMax(new AnomaliaMax(250));	
+		
+		System.out.println("...new Gestion Variable");
 	}
 	
 	//setters y getters
