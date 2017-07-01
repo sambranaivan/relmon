@@ -173,15 +173,16 @@ public class Quickstart {
 								///
 							/////Registrar Anomalias
 								System.out.println("[#5]/////Registrar Anomalias");
+								
 								GestionVariable unaGestion = new GestionVariable();
-								unaGestion.checkVariables(line);
-								unaGestion.cargarEnExcel(Dir+getTitulo()+"_Anomalias");
-								unaGestion = new GestionVariable();
-								unaGestion.checkVariables(line2);
-								unaGestion.cargarEnExcel(Dir+getTitulo()+"_Anomalias");
-								unaGestion = new GestionVariable();
-								unaGestion.checkVariables(line3);
-								unaGestion.cargarEnExcel(Dir+getTitulo()+"_Anomalias");
+								//unaGestion.checkVariables(line);
+								//unaGestion.cargarEnExcel(Dir+getTitulo()+"_Anomalias");
+								//unaGestion = new GestionVariable();
+								//unaGestion.checkVariables(line2);
+								//unaGestion.cargarEnExcel(Dir+getTitulo()+"_Anomalias");
+								//unaGestion = new GestionVariable();
+								//unaGestion.checkVariables(line3);
+								//unaGestion.cargarEnExcel(Dir+getTitulo()+"_Anomalias");
 								
 								
 								
@@ -190,6 +191,7 @@ public class Quickstart {
 								window.repaint();
 							} catch (Exception e2) {
 								// TODO: handle exception
+								System.out.println(e2.getMessage());
 							}
 						}
 							//CIERRO LOS SCANNER DE PUERTOS

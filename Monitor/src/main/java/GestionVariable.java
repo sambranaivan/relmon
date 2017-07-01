@@ -11,6 +11,8 @@ public class GestionVariable {
 	public GestionVariable(){
 		this.variables = new ArrayList<Variable>(); 
 		Variable varConAbierto1 = new Variable("Conector Abierto 1");
+		
+		///ME TIRA NUUL POINTER EXCEPCION EN variable.
 		varConAbierto1.setAnomaliaMin(new AnomaliaMin(30));
 		varConAbierto1.setAnomaliaMax(new AnomaliaMax(100));
 		

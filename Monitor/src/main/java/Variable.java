@@ -29,6 +29,7 @@ public class Variable {
 		this.anomalias = p_anomalias;
 	}
 	
+	///NULL POINT EXCEPTION
 	public void setAnomaliaMin(AnomaliaMin p_anomMin){
 		this.getAnomalias().add(p_anomMin);
 	}
