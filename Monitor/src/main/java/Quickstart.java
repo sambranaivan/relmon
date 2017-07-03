@@ -191,7 +191,7 @@ public class Quickstart {
 								window.repaint();
 							} catch (Exception e2) {
 								// TODO: handle exception
-								System.out.println(e2.getMessage());
+								System.out.println("!!!e2= "+ e2.toString());
 							}
 						}
 							//CIERRO LOS SCANNER DE PUERTOS

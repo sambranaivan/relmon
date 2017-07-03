@@ -23,7 +23,7 @@ public class ExcelFile {
         
         
             //Constructor: para realizar las etiquetas de inicio
-            public ExcelFile (ArrayList<String> Hojas) {
+        public ExcelFile (ArrayList<String> Hojas) {
                 puertos = Hojas;
             } //Cierre del constructor
         
@@ -62,37 +62,37 @@ public class ExcelFile {
         
         
         
-	//Codigo que agrega un dato en el excel
-	public static void appendFiles(File excelFile, String filename, String p_dato, String Hoja) throws IOException{
-        InputStream excelStream = null;
-          
-            excelStream = new FileInputStream(excelFile);
-            // High level representation of a workbook.
-            // Representaci�n del m�s alto nivel de la hoja excel.
-            HSSFWorkbook hssfWorkbook = new HSSFWorkbook(excelStream);
-            // We chose the sheet is passed as parameter. 
-            // Elegimos la hoja que se pasa por par�metro.
-            //HSSFSheet hssfSheet = hssfWorkbook.getSheetAt(Integer.parseInt(Hoja));
-
-            sheetName = hssfWorkbook.getSheet(Hoja);
-            
-            // I get the last number of rows occupied on the sheet
-            // Obtengo el último n�mero de filas ocupadas en la hoja
-            //int rows = hssfSheet.getLastRowNum();        
-            int lastRow = sheetName.getLastRowNum() + 1;
-            // We create the new sheet we are going to use.
-            // Creamos la hoja nueva que vamos a utilizar.
-            HSSFRow row = sheetName.createRow((short)lastRow);
-            //Appending a row   
-            row = cargarRow(row, p_dato);
-            writeSheetFiles(hssfWorkbook,  filename);
-            
-	}
+		//Codigo que agrega un dato en el excel
+		public static void appendFiles(File excelFile, String filename, String p_dato, String Hoja) throws IOException{
+	        InputStream excelStream = null;
+	          
+	            excelStream = new FileInputStream(excelFile);
+	            // High level representation of a workbook.
+	            // Representaci�n del m�s alto nivel de la hoja excel.
+	            HSSFWorkbook hssfWorkbook = new HSSFWorkbook(excelStream);
+	            // We chose the sheet is passed as parameter. 
+	            // Elegimos la hoja que se pasa por par�metro.
+	            //HSSFSheet hssfSheet = hssfWorkbook.getSheetAt(Integer.parseInt(Hoja));
 	
-        
-	
-	//C�digo que escribe por primera vez un dato en el excel
-	public static void writeSheetFiles(HSSFWorkbook workbook, String filename){
+	            sheetName = hssfWorkbook.getSheet(Hoja);
+	            
+	            // I get the last number of rows occupied on the sheet
+	            // Obtengo el último n�mero de filas ocupadas en la hoja
+	            //int rows = hssfSheet.getLastRowNum();        
+	            int lastRow = sheetName.getLastRowNum() + 1;
+	            // We create the new sheet we are going to use.
+	            // Creamos la hoja nueva que vamos a utilizar.
+	            HSSFRow row = sheetName.createRow((short)lastRow);
+	            //Appending a row   
+	            row = cargarRow(row, p_dato);
+	            writeSheetFiles(hssfWorkbook,  filename);
+	            
+		}
+		
+	        
+		
+		//C�digo que escribe por primera vez un dato en el excel
+		public static void writeSheetFiles(HSSFWorkbook workbook, String filename){
             FileOutputStream fileOut;
             
             File fil = new File(filename);
@@ -113,9 +113,7 @@ public class ExcelFile {
 	
 	    public void CargarExcel(String p_dato, String p_ruta,String Hoja) {
 	        try {
-                 
-	            
-	            String filename = p_ruta+".xls" ;
+                String filename = p_ruta+".xls" ;
 	            File excelFile = new File(filename);
 	            
 	            
@@ -191,7 +189,7 @@ public class ExcelFile {
                 
                 	         
 	        } catch ( Exception ex ) {
-	            System.out.println(ex);
+	            System.out.println("!Cargar excel Anomaliad: "+ex);
 	        }
 	    
 	}
