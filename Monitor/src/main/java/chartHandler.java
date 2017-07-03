@@ -15,11 +15,12 @@ import org.jfree.data.xy.XYSeriesCollection;
 public class chartHandler {
 
 	XYSeries[][] seriesArray;
-	XYSeriesCollection[] datasetArray;
+	XYSeriesCollection[] datasetArray;//aqui estan todos los datos
 	JFreeChart[] chartArray;
 	ArrayList<String> Cabeceras_ui;
 	private int puertos;
 	private int sensores;
+	private int graph_limit = 10;
 	
 	private int getPuertos() {
 		return puertos;
@@ -92,7 +93,7 @@ public class chartHandler {
 					for (int j = 0; j < seriesArray.length; j++) {//3
 						//creo una serie por cada puerto			
 						seriesArray[j][i] = new XYSeries("Ciaa_"+(j+1));//creo la serie con el nombre CIAA_n
-						seriesArray[j][i].setMaximumItemCount(10);//limito a 10 la informacion ah graficar
+						seriesArray[j][i].setMaximumItemCount(this.graph_limit);//limito a 10 la informacion ah graficar
 						
 						datasetArray[i].addSeries(seriesArray[j][i]);//Vinculo la serie a cada dataset
 					}

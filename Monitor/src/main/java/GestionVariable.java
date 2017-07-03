@@ -120,11 +120,16 @@ public class GestionVariable {
 		//carga cada variable en ExcelFile solamente si el resultado de la anomlia es true
 		/// get.(0) no va...hacer con otro For
 		for(Variable var : this.getVariables()){
-			if(var.getAnomalias().get(0).getResultado().getFlag() ||
-					var.getAnomalias().get(1).getResultado().getFlag()){
+		
+				for(Anomalia ano: var.getAnomalias())
+				{
+					if(ano.getResultado().getFlag())
+					{
+						unDoc.CargarExcelAnomalia(p_ruta, var);
+					}
+				}			
 				
-				unDoc.CargarExcelAnomalia(p_ruta, var);
-			}
+			
 		}
 	}
 	
