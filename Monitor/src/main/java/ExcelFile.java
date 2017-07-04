@@ -224,11 +224,14 @@ public class ExcelFile {
         //Carga una fila del excel con los valores recibidos de anomalias
         private static HSSFRow cargarRowAnomalias(HSSFRow p_row, Variable p_variable){
                 
-        	if(p_variable.getAnomalias().get(0).getResultado().getFlag()){
-        		p_row.createCell(0).setCellValue(p_variable.getAnomalias().get(0).getResultado().getMensaje());
-        	}else{
-        		p_row.createCell(1).setCellValue(p_variable.getAnomalias().get(1).getResultado().getMensaje());
-        	}
+        	//carga en la celda de primer columna A el mensaje del resultado de la anomalia
+			for(Anomalia ano: p_variable.getAnomalias())
+			{
+				if(ano.getResultado().getFlag())
+				{
+					p_row.createCell(0).setCellValue(ano.getResultado().getMensaje());
+				}
+			}
         	
             return p_row;
         }
