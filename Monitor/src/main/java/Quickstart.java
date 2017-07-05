@@ -23,7 +23,6 @@ import javax.swing.JPanel;
 
 import com.fazecast.jSerialComm.SerialPort;
 
-import observer.*;
 public class Quickstart {
 	
 	
