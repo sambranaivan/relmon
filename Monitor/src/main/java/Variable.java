@@ -5,6 +5,7 @@ public class Variable {
 
 	//attributes
 	private String nombreVariable;
+	private int max;
 	private ArrayList<Double> valores;
 	private ArrayList<Anomalia> anomalias = new ArrayList<Anomalia>(); 
 
@@ -26,17 +27,25 @@ public class Variable {
 		return this.anomalias;
 	}
 	
+	public int getMax(){
+		return this.max;
+	}
+	
 	public void setValor(double p_valor){
 		this.valores.add(p_valor);
 		
 		//solo guarda hasta 100 valores, arquitectura FIFO
-		if(this.getValores().size() > 100){
+		if(this.getValores().size() > this.getMax()){
 			this.getValores().remove(0);
 		}
 	}
 	
 	public void setAnomalias(ArrayList<Anomalia> p_anomalias){
 		this.anomalias = p_anomalias;
+	}
+	
+	public void setMax(int p_max){
+		this.max = p_max;
 	}
 	
 	///NULL POINT EXCEPTION
@@ -49,9 +58,10 @@ public class Variable {
 	}
 	
 	//constructor
-	public Variable(String p_nombreVariable) {
+	public Variable(String p_nombreVariable, int p_max) {
 		this.nombreVariable = p_nombreVariable;
 		this.valores = new ArrayList<Double>();
+		this.max = p_max;
 	}
 
 	//check general

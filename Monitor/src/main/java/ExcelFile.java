@@ -153,9 +153,7 @@ public class ExcelFile {
 //                rowhead.createCell(2).setCellValue("Valor Máximo 400");
                 
 
-               	rowhead.createCell(0).setCellValue("Fecha: ");
-               	rowhead.createCell(1).setCellValue("Tipo Anomalia; ");
-               	rowhead.createCell(2).setCellValue("Valor: ");
+               	rowhead.createCell(0).setCellValue("Mensaje <XML>: ");
                 
                 
                 writeSheetFiles(workbook, filename);

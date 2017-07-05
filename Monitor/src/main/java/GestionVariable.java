@@ -10,69 +10,69 @@ public class GestionVariable {
 	//Constructor
 	public GestionVariable(){
 		this.variables = new ArrayList<Variable>(); 
-		Variable varConAbierto1 = new Variable("Conector Abierto 1");
+		Variable varConAbierto1 = new Variable("Conector Abierto 1",100);
 		
 		///ME TIRA NUUL POINTER EXCEPCION EN variable.
 		varConAbierto1.setAnomaliaMin(new AnomaliaMin(30));
 		varConAbierto1.setAnomaliaMax(new AnomaliaMax(100));
 		this.variables.add(varConAbierto1);
 		
-		Variable varConCerrado1 = new Variable("Conector Cerrado 1");
+		Variable varConCerrado1 = new Variable("Conector Cerrado 1", 100);
 		varConCerrado1.setAnomaliaMin(new AnomaliaMin(400));
 		varConCerrado1.setAnomaliaMax(new AnomaliaMax(600));
 		this.variables.add(varConCerrado1);
 		
-		Variable varConAbierto2 = new Variable("Conector Abierto 2");
+		Variable varConAbierto2 = new Variable("Conector Abierto 2", 100);
 		varConAbierto2.setAnomaliaMin(new AnomaliaMin(30));
 		varConAbierto2.setAnomaliaMax(new AnomaliaMax(100));
 		this.variables.add(varConAbierto2);
 		
-		Variable varConCerrado2 = new Variable("Conector Cerrado 2");
+		Variable varConCerrado2 = new Variable("Conector Cerrado 2", 100);
 		varConCerrado2.setAnomaliaMin(new AnomaliaMin(400));
 		varConCerrado2.setAnomaliaMax(new AnomaliaMax(600));
 		this.variables.add(varConCerrado2);
 		
-		Variable varConAbierto3 = new Variable("Conector Abierto 3");
+		Variable varConAbierto3 = new Variable("Conector Abierto 3", 100);
 		varConAbierto3.setAnomaliaMin(new AnomaliaMin(30));
 		varConAbierto3.setAnomaliaMax(new AnomaliaMax(100));
 		this.variables.add(varConAbierto3);
 		
-		Variable varConCerrado3 = new Variable("Conector Cerrado 3");
+		Variable varConCerrado3 = new Variable("Conector Cerrado 3", 100);
 		varConCerrado3.setAnomaliaMin(new AnomaliaMin(400));
 		varConCerrado3.setAnomaliaMax(new AnomaliaMax(600));
 		this.variables.add(varConCerrado3);
 		
-		Variable varConAbierto4 = new Variable("Conector Abierto 4");
+		Variable varConAbierto4 = new Variable("Conector Abierto 4", 100);
 		varConAbierto4.setAnomaliaMin(new AnomaliaMin(30));
 		varConAbierto4.setAnomaliaMax(new AnomaliaMax(100));
 		this.variables.add(varConAbierto4);
 		
-		Variable varConCerrado4 = new Variable("Conector Cerrado 4");
+		Variable varConCerrado4 = new Variable("Conector Cerrado 4", 100);
 		varConCerrado4.setAnomaliaMin(new AnomaliaMin(400));
 		varConCerrado4.setAnomaliaMax(new AnomaliaMax(600));
 		this.variables.add(varConCerrado4);
 		
-		Variable varConAbierto5 = new Variable("Conector Abierto 5");
+		Variable varConAbierto5 = new Variable("Conector Abierto 5", 100);
 		varConAbierto5.setAnomaliaMin(new AnomaliaMin(30));
 		varConAbierto5.setAnomaliaMax(new AnomaliaMax(100));
 		this.variables.add(varConAbierto5);
 		
-		Variable varConCerrado5 = new Variable("Conector Cerrado 5");
+		Variable varConCerrado5 = new Variable("Conector Cerrado 5", 100);
 		varConCerrado5.setAnomaliaMin(new AnomaliaMin(400));
 		varConCerrado5.setAnomaliaMax(new AnomaliaMax(600));
 		this.variables.add(varConCerrado5);
 		
-		Variable varConAbierto6 = new Variable("Conector Abierto 6");
+		Variable varConAbierto6 = new Variable("Conector Abierto 6", 100);
 		varConAbierto6.setAnomaliaMin(new AnomaliaMin(30));
 		varConAbierto6.setAnomaliaMax(new AnomaliaMax(100));
 		this.variables.add(varConAbierto6);
 		
-		Variable varConCerrado6 = new Variable("Conector Cerrado 6");
+		Variable varConCerrado6 = new Variable("Conector Cerrado 6", 100);
 		varConCerrado6.setAnomaliaMin(new AnomaliaMin(400));
 		varConCerrado6.setAnomaliaMax(new AnomaliaMax(600));
 		this.variables.add(varConCerrado6);
 		
-		//Variable varTemperatura = new Variable("Temperatura");
+		//Variable varTemperatura = new Variable("Temperatura", 100);
 		//varTemperatura.setAnomaliaMin(new AnomaliaMin(200));
 		//varTemperatura.setAnomaliaMax(new AnomaliaMax(250));
 		//this.variables.add(varTemperatura);
