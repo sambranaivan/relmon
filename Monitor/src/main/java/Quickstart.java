@@ -1,7 +1,4 @@
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -12,23 +9,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.entity.JFreeChartEntity;
-import org.jfree.chart.resources.JFreeChartResources;
-import org.jfree.data.xy.XYDatasetTableModel;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
-import org.jfree.data.statistics.*;
+
 
 //client id 571325534848-5gv2trfk3tm7dd1bs8980uok5pd9rhgp.apps.googleusercontent.com
 //client secrete aYtej_QeEYei42ygruIvxjpS
@@ -37,6 +23,7 @@ import org.jfree.data.statistics.*;
 
 import com.fazecast.jSerialComm.SerialPort;
 
+import observer.*;
 public class Quickstart {
 	
 	
@@ -50,9 +37,15 @@ public class Quickstart {
 
 	
 	//static String Dir = "C:/exceltest/";
+	public chartHandler getGraficos()
+	{
+		return Quickstart.Graficos;
+	}
 	
-
 	public static void main(String[] args) throws IOException {
+		
+		
+		
 		final GoogleServices GoogleApi = new GoogleServices();
 				
 		final ArrayList<String> Hojas = new ArrayList<>(Arrays.asList(("CIAA 1,CIAA 2,CIAA 3").split(",")));
@@ -227,6 +220,8 @@ public class Quickstart {
 		
 		
 	}
+
+	
 
 	public static String getTitulo()
 	{

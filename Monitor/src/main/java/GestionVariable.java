@@ -13,68 +13,68 @@ public class GestionVariable {
 		Variable varConAbierto1 = new Variable("Conector Abierto 1",101);
 		
 		///ME TIRA NUUL POINTER EXCEPCION EN variable.
-		varConAbierto1.setAnomaliaMin(new AnomaliaMin(30));
+		varConAbierto1.setAnomaliaMin(new AnomaliaMin(0));
 		varConAbierto1.setAnomaliaMax(new AnomaliaMax(100));
 		this.variables.add(varConAbierto1);
 		
 		Variable varConCerrado1 = new Variable("Conector Cerrado 1", 101);
-		varConCerrado1.setAnomaliaMin(new AnomaliaMin(400));
-		varConCerrado1.setAnomaliaMax(new AnomaliaMax(600));
+		varConCerrado1.setAnomaliaMin(new AnomaliaMin(0));
+		varConCerrado1.setAnomaliaMax(new AnomaliaMax(100));
 		this.variables.add(varConCerrado1);
 		
 		Variable varConAbierto2 = new Variable("Conector Abierto 2", 101);
-		varConAbierto2.setAnomaliaMin(new AnomaliaMin(30));
+		varConAbierto2.setAnomaliaMin(new AnomaliaMin(0));
 		varConAbierto2.setAnomaliaMax(new AnomaliaMax(100));
 		this.variables.add(varConAbierto2);
 		
 		Variable varConCerrado2 = new Variable("Conector Cerrado 2", 101);
-		varConCerrado2.setAnomaliaMin(new AnomaliaMin(400));
-		varConCerrado2.setAnomaliaMax(new AnomaliaMax(600));
+		varConCerrado2.setAnomaliaMin(new AnomaliaMin(0));
+		varConCerrado2.setAnomaliaMax(new AnomaliaMax(100));
 		this.variables.add(varConCerrado2);
 		
 		Variable varConAbierto3 = new Variable("Conector Abierto 3", 101);
-		varConAbierto3.setAnomaliaMin(new AnomaliaMin(30));
+		varConAbierto3.setAnomaliaMin(new AnomaliaMin(0));
 		varConAbierto3.setAnomaliaMax(new AnomaliaMax(100));
 		this.variables.add(varConAbierto3);
 		
 		Variable varConCerrado3 = new Variable("Conector Cerrado 3", 101);
-		varConCerrado3.setAnomaliaMin(new AnomaliaMin(400));
-		varConCerrado3.setAnomaliaMax(new AnomaliaMax(600));
+		varConCerrado3.setAnomaliaMin(new AnomaliaMin(0));
+		varConCerrado3.setAnomaliaMax(new AnomaliaMax(100));
 		this.variables.add(varConCerrado3);
 		
 		Variable varConAbierto4 = new Variable("Conector Abierto 4", 100);
-		varConAbierto4.setAnomaliaMin(new AnomaliaMin(30));
+		varConAbierto4.setAnomaliaMin(new AnomaliaMin(0));
 		varConAbierto4.setAnomaliaMax(new AnomaliaMax(100));
 		this.variables.add(varConAbierto4);
 		
 		Variable varConCerrado4 = new Variable("Conector Cerrado 4", 101);
-		varConCerrado4.setAnomaliaMin(new AnomaliaMin(400));
-		varConCerrado4.setAnomaliaMax(new AnomaliaMax(600));
+		varConCerrado4.setAnomaliaMin(new AnomaliaMin(0));
+		varConCerrado4.setAnomaliaMax(new AnomaliaMax(100));
 		this.variables.add(varConCerrado4);
 		
 		Variable varConAbierto5 = new Variable("Conector Abierto 5", 101);
-		varConAbierto5.setAnomaliaMin(new AnomaliaMin(30));
+		varConAbierto5.setAnomaliaMin(new AnomaliaMin(0));
 		varConAbierto5.setAnomaliaMax(new AnomaliaMax(100));
 		this.variables.add(varConAbierto5);
 		
 		Variable varConCerrado5 = new Variable("Conector Cerrado 5", 101);
-		varConCerrado5.setAnomaliaMin(new AnomaliaMin(400));
-		varConCerrado5.setAnomaliaMax(new AnomaliaMax(600));
+		varConCerrado5.setAnomaliaMin(new AnomaliaMin(0));
+		varConCerrado5.setAnomaliaMax(new AnomaliaMax(100));
 		this.variables.add(varConCerrado5);
 		
 		Variable varConAbierto6 = new Variable("Conector Abierto 6", 101);
-		varConAbierto6.setAnomaliaMin(new AnomaliaMin(30));
+		varConAbierto6.setAnomaliaMin(new AnomaliaMin(0));
 		varConAbierto6.setAnomaliaMax(new AnomaliaMax(100));
 		this.variables.add(varConAbierto6);
 		
 		Variable varConCerrado6 = new Variable("Conector Cerrado 6", 101);
-		varConCerrado6.setAnomaliaMin(new AnomaliaMin(400));
-		varConCerrado6.setAnomaliaMax(new AnomaliaMax(600));
+		varConCerrado6.setAnomaliaMin(new AnomaliaMin(0));
+		varConCerrado6.setAnomaliaMax(new AnomaliaMax(100));
 		this.variables.add(varConCerrado6);
 		
 		//Variable varTemperatura = new Variable("Temperatura", 101);
-		//varTemperatura.setAnomaliaMin(new AnomaliaMin(200));
-		//varTemperatura.setAnomaliaMax(new AnomaliaMax(250));
+		//varTemperatura.setAnomaliaMin(new AnomaliaMin(0));
+		//varTemperatura.setAnomaliaMax(new AnomaliaMax(100));
 		//this.variables.add(varTemperatura);
 		
 		System.out.println("...new Gestion Variable");
