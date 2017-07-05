@@ -115,7 +115,10 @@ public class Quickstart {
 						@Override public void run(){
 							System.out.println("Dentro del Hilo");
 						Puertos.scannerInit();
-							
+						
+						//objeto que gestiona las variables y sus anomalias
+						GestionVariable unaGestion = new GestionVariable();
+						
 							while (Puertos.HasNextLine()) {
 							try {
 								String line = Puertos.getNextLine(0);
@@ -174,7 +177,7 @@ public class Quickstart {
 							/////Registrar Anomalias
 								System.out.println("[#5]/////Registrar Anomalias");
 								
-								GestionVariable unaGestion = new GestionVariable();
+								
 								unaGestion.checkVariables(line);
 								unaGestion.cargarEnExcel(Dir+getTitulo()+"_Anomalias");
 								unaGestion = new GestionVariable();
