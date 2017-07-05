@@ -59,8 +59,10 @@ public class Quickstart {
 			
 		final ExcelFile Excel = new ExcelFile(Hojas);
 		
-		//objeto que gestiona las variables y sus anomalias
-		final GestionVariable unaGestion = new GestionVariable();
+		//objetos que gestionan las variables y sus anomalias
+		final GestionVariable gestionUno = new GestionVariable();
+		final GestionVariable gestionDos = new GestionVariable();
+		final GestionVariable gestionTres = new GestionVariable();
 			
 		final JFrame window = new ventana();
 		//crear un menu de seleccion de puertos y el boton para empezar
@@ -179,15 +181,15 @@ public class Quickstart {
 								System.out.println("[#5]/////Registrar Anomalias");
 								
 								
-								unaGestion.checkVariables(line);
-								unaGestion.cargarEnExcel(Dir+getTitulo()+"_Anomalias");
-								unaGestion.resetResultados();
-								unaGestion.checkVariables(line2);
-								unaGestion.cargarEnExcel(Dir+getTitulo()+"_Anomalias");
-								unaGestion.resetResultados();
-								unaGestion.checkVariables(line3);
-								unaGestion.cargarEnExcel(Dir+getTitulo()+"_Anomalias");
-								unaGestion.resetResultados();
+								gestionUno.checkVariables(line);
+								gestionUno.cargarEnExcel(Dir+getTitulo()+"_Anomalias_CIAA_1");
+								gestionUno.resetResultados();
+								gestionDos.checkVariables(line2);
+								gestionDos.cargarEnExcel(Dir+getTitulo()+"_Anomalias_CIAA_2");
+								gestionDos.resetResultados();
+								gestionTres.checkVariables(line3);
+								gestionTres.cargarEnExcel(Dir+getTitulo()+"_Anomalias_CIAA_3");
+								gestionTres.resetResultados();
 								
 								
 								//LIMPIO LA PANTALLA
