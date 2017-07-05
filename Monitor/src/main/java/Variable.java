@@ -5,7 +5,7 @@ public class Variable {
 
 	//attributes
 	private String nombreVariable;
-	private double valor;
+	private ArrayList<Double> valores;
 	private ArrayList<Anomalia> anomalias = new ArrayList<Anomalia>(); 
 
 	//setter and getters
@@ -14,7 +14,12 @@ public class Variable {
 	}
 	
 	public double getValor(){
-		return this.valor;
+		//retorna el ultimo valor almacenado, el mas actual
+		return this.valores.get(this.getValores().size()-1);
+	}
+	
+	public ArrayList<Double> getValores(){
+		return this.valores;
 	}
 	
 	public ArrayList<Anomalia> getAnomalias(){
@@ -22,7 +27,12 @@ public class Variable {
 	}
 	
 	public void setValor(double p_valor){
-		this.valor = p_valor;
+		this.valores.add(p_valor);
+		
+		//solo guarda hasta 100 valores, arquitectura FIFO
+		if(this.getValores().size() > 100){
+			this.getValores().remove(0);
+		}
 	}
 	
 	public void setAnomalias(ArrayList<Anomalia> p_anomalias){
@@ -39,21 +49,15 @@ public class Variable {
 	}
 	
 	//constructor
-	public Variable(double p_valor, String p_nombreVariable){
-		valor = p_valor;
-		nombreVariable = p_nombreVariable;
-	}
-	
 	public Variable(String p_nombreVariable) {
 		this.nombreVariable = p_nombreVariable;
+		this.valores = new ArrayList<Double>();
 	}
 
 	//check general
 	public void check(){
-		Anomalia unAnomalia;
-		ResultadoAnomalia unResultado;
 		for (Anomalia a : this.getAnomalias()) {
-	    	  a.check(this.valor, this.getNombreVariable());
+	    	  a.check(this.getValor(), this.getNombreVariable());
 		}
 	}
 	

@@ -58,6 +58,9 @@ public class Quickstart {
 		final ArrayList<String> Hojas = new ArrayList<>(Arrays.asList(("CIAA 1,CIAA 2,CIAA 3").split(",")));
 			
 		final ExcelFile Excel = new ExcelFile(Hojas);
+		
+		//objeto que gestiona las variables y sus anomalias
+		final GestionVariable unaGestion = new GestionVariable();
 			
 		final JFrame window = new ventana();
 		//crear un menu de seleccion de puertos y el boton para empezar
@@ -115,9 +118,6 @@ public class Quickstart {
 						@Override public void run(){
 							System.out.println("Dentro del Hilo");
 						Puertos.scannerInit();
-						
-						//objeto que gestiona las variables y sus anomalias
-						GestionVariable unaGestion = new GestionVariable();
 						
 
 							while (Puertos.HasNextLine()) {
@@ -181,13 +181,13 @@ public class Quickstart {
 								
 								unaGestion.checkVariables(line);
 								unaGestion.cargarEnExcel(Dir+getTitulo()+"_Anomalias");
-								unaGestion = new GestionVariable();
+								unaGestion.resetResultados();
 								unaGestion.checkVariables(line2);
 								unaGestion.cargarEnExcel(Dir+getTitulo()+"_Anomalias");
-								unaGestion = new GestionVariable();
+								unaGestion.resetResultados();
 								unaGestion.checkVariables(line3);
 								unaGestion.cargarEnExcel(Dir+getTitulo()+"_Anomalias");
-								
+								unaGestion.resetResultados();
 								
 								
 								//LIMPIO LA PANTALLA
