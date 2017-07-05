@@ -1,5 +1,3 @@
-import observer.Alarma;
-
 public class ResultadoAnomalia {
 
 	private Alarma alarm = new Alarma();
