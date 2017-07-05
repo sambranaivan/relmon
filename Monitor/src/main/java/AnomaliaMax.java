@@ -1,4 +1,5 @@
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AnomaliaMax extends Anomalia {
@@ -10,7 +11,7 @@ public class AnomaliaMax extends Anomalia {
 	
 	
 	//check MAX anomaly
-	public ResultadoAnomalia check(double p_data, String p_nombreVariable){ 
+	public ResultadoAnomalia check(ArrayList<Double> p_data, String p_nombreVariable){ 
 		String msg;
 		double diff;
 		ResultadoAnomalia r = new ResultadoAnomalia();
@@ -20,14 +21,21 @@ public class AnomaliaMax extends Anomalia {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String strDate = sdf.format(cal.getTime());
 		
-		if(super.refValue < p_data){
-			diff = p_data - super.refValue;
-			msg = "<log date="+ strDate +"><type>MAX</type><variable>"+p_nombreVariable+"</variable><ref_value>"+super.refValue +"</ref_value><actual_value>"+p_data+"</actual_value><diff>"+diff+"<diff></log>";
+		if(super.refValue < p_data.get(p_data.size()-1)){
+			diff = (p_data.get(p_data.size()-1)) - super.refValue;
+			msg = "<log date="+ strDate +"><type>MAX</type><variable>"+p_nombreVariable+"</variable><ref_value>"+super.refValue +"</ref_value><actual_value>"+p_data.get(p_data.size()-1)+"</actual_value><diff>"+diff+"<diff></log>";
 			r.add(true, msg);
 		}
 		this.setFecha(strDate);
 		this.setResultadoAnomalia(r);
 		return r;
+	}
+
+
+	@Override
+	public ResultadoAnomalia check(double p_data) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

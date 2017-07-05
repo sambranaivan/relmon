@@ -67,7 +67,7 @@ public class Variable {
 	//check general
 	public void check(){
 		for (Anomalia a : this.getAnomalias()) {
-	    	  a.check(this.getValor(), this.getNombreVariable());
+	    	  a.check(this.getValores(), this.getNombreVariable());
 		}
 	}
 	

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public  abstract class Anomalia {
 	//attributes
@@ -28,7 +29,7 @@ public  abstract class Anomalia {
 	
 	//abstract methods 
 	//abstract public boolean check(double dataRef);
-	abstract public ResultadoAnomalia check(double p_data, String p_nombreVariable);
+	abstract public ResultadoAnomalia check(ArrayList<Double> p_data, String p_nombreVariable);
 	
 	//add an ResultadoAnomalia
 	public void add(ResultadoAnomalia p_resultado){
