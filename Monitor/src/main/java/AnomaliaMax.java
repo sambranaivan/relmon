@@ -32,11 +32,7 @@ public class AnomaliaMax extends Anomalia {
 	}
 
 
-	@Override
-	public ResultadoAnomalia check(double p_data) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 	
 
 	

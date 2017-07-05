@@ -33,6 +33,7 @@ public  abstract class Anomalia {
 	
 	//add an ResultadoAnomalia
 	public void add(ResultadoAnomalia p_resultado){
+		
 		this.resultado = p_resultado;
 	}
 	
