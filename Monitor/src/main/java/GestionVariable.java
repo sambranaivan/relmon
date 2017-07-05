@@ -85,13 +85,6 @@ public class GestionVariable {
 		return this.variables;
 	}
 	
-	public void resetResultados(){
-		for(Variable var : this.getVariables()){
-			for (Anomalia a : var.getAnomalias()){
-				a.setResultadoAnomalia(null);
-			}
-		}
-	}
 	 
 	//carga ArrayList anomalias de una Variable, con resultados posee anomalias
 	public void checkVariables(String p_dato){

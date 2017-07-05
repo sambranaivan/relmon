@@ -183,13 +183,10 @@ public class Quickstart {
 								
 								gestionUno.checkVariables(line);
 								gestionUno.cargarEnExcel(Dir+getTitulo()+"_Anomalias_CIAA_1");
-								gestionUno.resetResultados();
 								gestionDos.checkVariables(line2);
 								gestionDos.cargarEnExcel(Dir+getTitulo()+"_Anomalias_CIAA_2");
-								gestionDos.resetResultados();
 								gestionTres.checkVariables(line3);
 								gestionTres.cargarEnExcel(Dir+getTitulo()+"_Anomalias_CIAA_3");
-								gestionTres.resetResultados();
 								
 								
 								//LIMPIO LA PANTALLA
