@@ -119,6 +119,7 @@ public class Quickstart {
 						//objeto que gestiona las variables y sus anomalias
 						GestionVariable unaGestion = new GestionVariable();
 						
+
 							while (Puertos.HasNextLine()) {
 							try {
 								String line = Puertos.getNextLine(0);
