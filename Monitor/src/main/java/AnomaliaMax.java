@@ -23,9 +23,9 @@ public class AnomaliaMax extends Anomalia {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String strDate = sdf.format(cal.getTime());
 		
-		if(super.refValue < p_data.get(p_data.size()-1)){
-			diff = (p_data.get(p_data.size()-1)) - super.refValue;
-			msg = "<log date="+ strDate +"><type>MAX</type><variable>"+p_nombreVariable+"</variable><ref_value>"+super.refValue +"</ref_value><actual_value>"+p_data.get(p_data.size()-1)+"</actual_value><diff>"+diff+"<diff></log>";
+		if(this.getRefValue() < p_data.get(p_data.size()-1)){
+			diff = (p_data.get(p_data.size()-1)) - this.getRefValue();
+			msg = "<log date="+ strDate +"><type>MAX</type><variable>"+p_nombreVariable+"</variable><ref_value>"+this.getRefValue() +"</ref_value><actual_value>"+p_data.get(p_data.size()-1)+"</actual_value><diff>"+diff+"<diff></log>";
 			r.add(true, msg);
 		}
 		this.setFecha(strDate);
